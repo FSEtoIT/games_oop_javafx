@@ -17,13 +17,27 @@ public final class Logic {
         int index = findBy(source);
         Cell[] steps = figures[index].way(dest);
         free(steps);
+        int destIndex = findFigureByCell(dest);
+        if (destIndex != -1) {
+            figures[destIndex] = null; // взятие фигуры
+        }
+
         figures[index] = figures[index].copy(dest);
     }
 
+    private int findFigureByCell(Cell cell) {
+        for (int i = 0; i < figures.length; i++) {
+            if (figures[i] != null && figures[i].position().equals(cell)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     private boolean free(Cell[] steps) throws OccupiedCellException {
-        for (Cell step : steps) {
+        for (int i = 0; i < steps.length - 1; i++) {
             for (Figure figure : figures) {
-                if (figure != null && figure.position().equals(step)) {
+                if (figure != null && figure.position().equals(steps[i])) {
                     throw new OccupiedCellException("Cell is occupied.");
                 }
             }
