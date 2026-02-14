@@ -35,7 +35,9 @@ class BishopBlackTest {
     }
 
     @Test
-    public void whenBishopMoveFromC1ToG5ThenCorrectWay() {
+    public void whenBishopMoveFromC1ToG5ThenCorrectWay()
+            throws ImpossibleMoveException {
+
         BishopBlack bishop = new BishopBlack(Cell.C1);
         Cell[] result = bishop.way(Cell.G5);
 
